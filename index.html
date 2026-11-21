@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <title>Simulasi TWK CPNS — Implementasi Pancasila</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="body">
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Simulasi TWK CPNS">
+        <span class="brand-mark">TWK</span>
+        <span class="brand-copy">
+          <strong>Ruang Latihan</strong>
+          <small>SIMULASI CAT CPNS</small>
+        </span>
+      </a>
+      <div class="topbar-right">
+        <span class="live-dot"></span>
+        <span>Mode latihan mandiri</span>
+      </div>
+    </header>
+
+    <section id="introScreen" class="intro-screen">
+      <div class="intro-copy">
+        <span class="eyebrow">TES WAWASAN KEBANGSAAN</span>
+        <h1>Uji pemahamanmu tentang <span>Pancasila.</span></h1>
+        <p>Simulasi 50 soal berdasarkan materi Implementasi Pancasila. Kerjakan dengan fokus, atur waktu, dan lihat hasilmu setelah selesai.</p>
+        <div class="feature-row">
+          <div class="feature"><span class="feature-icon">◷</span><div><strong>1 menit</strong><small>untuk setiap soal</small></div></div>
+          <div class="feature"><span class="feature-icon">✓</span><div><strong>50 soal</strong><small>pilihan ganda A–E</small></div></div>
+          <div class="feature"><span class="feature-icon">★</span><div><strong>Skor akhir</strong><small>langsung dihitung</small></div></div>
+        </div>
+        <button id="startBtn" class="btn btn-primary btn-large">Mulai simulasi <span>→</span></button>
+        <p class="fine-print">Pastikan kamu siap sebelum memulai. Timer berjalan otomatis saat simulasi dimulai.</p>
+      </div>
+      <aside class="intro-card">
+        <div class="card-topline"><span>RINGKASAN UJIAN</span><span class="pill">TWK</span></div>
+        <div class="big-number">50<span> soal</span></div>
+        <div class="mini-progress"><span></span></div>
+        <div class="summary-list">
+          <div><span>Total waktu maksimal</span><strong>50 menit</strong></div>
+          <div><span>Waktu per soal</span><strong>60 detik</strong></div>
+          <div><span>Skor maksimal</span><strong>100</strong></div>
+          <div><span>Nilai jawaban benar</span><strong>2 poin</strong></div>
+        </div>
+        <div class="notice"><span>ⓘ</span><p>Jika waktu sebuah soal habis, soal otomatis dilewati dan dihitung salah.</p></div>
+      </aside>
+    </section>
+
+    <section id="quizScreen" class="quiz-screen hidden">
+      <div class="quiz-heading">
+        <div>
+          <span class="eyebrow">SIMULASI BERLANGSUNG</span>
+          <h2>Implementasi Pancasila</h2>
+        </div>
+        <div class="question-count"><strong id="currentNumber">01</strong><span>/ 50</span></div>
+      </div>
+
+      <div class="status-grid">
+        <div class="status-card progress-card">
+          <div class="status-label"><span>PROGRES PENGERJAAN</span><strong id="progressText">1 dari 50</strong></div>
+          <div class="progress-track"><span id="progressBar"></span></div>
+        </div>
+        <div class="status-card timer-card" id="timerCard">
+          <div class="timer-label"><span class="timer-symbol">◷</span><span>WAKTU SOAL INI</span></div>
+          <div class="timer-value" id="timerValue">01:00</div>
+        </div>
+      </div>
+
+      <div class="quiz-layout">
+        <article class="question-panel">
+          <div class="question-meta">
+            <span id="questionCategory" class="category-tag">KONSEP DASAR</span>
+            <span class="question-points">2 poin</span>
+          </div>
+          <h3 id="questionText">Pertanyaan akan tampil di sini.</h3>
+          <div id="optionsList" class="options-list"></div>
+          <div class="question-footer">
+            <span id="answeredHint">Pilih satu jawaban untuk melanjutkan.</span>
+            <button id="nextBtn" class="btn btn-primary" disabled>Soal berikutnya <span>→</span></button>
+          </div>
+        </article>
+        <aside class="side-panel">
+          <div class="side-panel-head"><strong>Navigasi soal</strong><span id="answeredCount">0/50 terjawab</span></div>
+          <p class="side-help">Nomor yang sudah dikerjakan akan ditandai. Soal yang terlewat karena waktu habis dihitung salah.</p>
+          <div id="questionNav" class="question-nav"></div>
+          <div class="legend">
+            <span><i class="legend-dot done"></i> Dijawab</span>
+            <span><i class="legend-dot current"></i> Aktif</span>
+            <span><i class="legend-dot pending"></i> Belum</span>
+          </div>
+          <button id="finishBtn" class="btn btn-outline btn-full">Selesaikan ujian</button>
+        </aside>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="result-screen hidden">
+      <div class="result-header">
+        <span class="eyebrow">SIMULASI SELESAI</span>
+        <h2>Hasil latihanmu</h2>
+        <p>Evaluasi hasil pengerjaan TWK Implementasi Pancasila.</p>
+      </div>
+      <div class="result-hero">
+        <div class="score-ring" id="scoreRing">
+          <div><strong id="scoreValue">0</strong><span> / 100</span></div>
+          <small>NILAI AKHIR</small>
+        </div>
+        <div class="result-message">
+          <span id="resultBadge" class="result-badge">HASIL LATIHAN</span>
+          <h3 id="resultTitle">Terus tingkatkan kemampuanmu.</h3>
+          <p id="resultDescription">Hasil pengerjaanmu akan ditampilkan di sini.</p>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box"><span class="stat-icon correct">✓</span><strong id="correctCount">0</strong><small>Jawaban benar</small></div>
+        <div class="stat-box"><span class="stat-icon wrong">×</span><strong id="wrongCount">0</strong><small>Jawaban salah</small></div>
+        <div class="stat-box"><span class="stat-icon skipped">↷</span><strong id="skippedCount">0</strong><small>Terlewat (waktu habis)</small></div>
+        <div class="stat-box"><span class="stat-icon time">◷</span><strong id="timeUsed">00:00</strong><small>Total waktu digunakan</small></div>
+      </div>
+      <div class="review-panel">
+        <div class="review-heading"><div><span class="eyebrow">PEMBAHASAN</span><h3>Review jawaban</h3></div><span id="reviewSummary">50 soal</span></div>
+        <div id="reviewList" class="review-list"></div>
+      </div>
+      <div class="result-actions">
+        <button id="restartBtn" class="btn btn-primary btn-large">Ulangi simulasi <span>↻</span></button>
+        <button id="printBtn" class="btn btn-outline btn-large">Cetak hasil</button>
+      </div>
+    </section>
+
+    <footer class="footer"><span>RUANG LATIHAN · TWK CPNS</span><span>Belajar konsisten, selangkah lebih siap.</span></footer>
+  </main>
+
+  <dialog id="confirmDialog" class="confirm-dialog">
+    <div class="dialog-icon">?</div>
+    <h3>Selesaikan simulasi?</h3>
+    <p id="confirmText">Soal yang belum dijawab akan dihitung salah.</p>
+    <div class="dialog-actions">
+      <button id="cancelFinish" class="btn btn-outline">Lanjut mengerjakan</button>
+      <button id="confirmFinish" class="btn btn-primary">Ya, selesaikan</button>
+    </div>
+  </dialog>
+  <script>
+const questions = [
+  {c:"Konsep dasar",q:"Pancasila berasal dari bahasa Sanskerta, yaitu Panca dan Sila. Makna yang tepat dari kedua kata tersebut adalah ...",o:["Lima tujuan dan lima cita-cita","Lima dasar atau lima prinsip","Lima pedoman dan lima aturan hukum","Lima kepercayaan dan lima keyakinan","Lima negara dan lima kebudayaan"],a:1,e:"Panca berarti lima, sedangkan sila berarti dasar atau prinsip."},
+  {c:"Konsep dasar",q:"Pancasila memiliki kedudukan sebagai dasar negara sekaligus ideologi bangsa Indonesia. Hal tersebut menunjukkan bahwa Pancasila berfungsi sebagai ...",o:["Pedoman bagi pemerintah saja dalam menjalankan tugasnya","Aturan yang hanya berlaku dalam kehidupan politik","Landasan penyelenggaraan negara dan pedoman kehidupan bangsa","Hukum tertinggi yang dapat menggantikan UUD 1945","Pedoman yang hanya berlaku bagi masyarakat tertentu"],a:2,e:"Pancasila menjadi landasan penyelenggaraan negara sekaligus pedoman kehidupan bangsa."},
+  {c:"Konsep dasar",q:"Nilai Pancasila yang bersifat universal dan inklusif menunjukkan bahwa Pancasila ...",o:["Hanya berlaku bagi masyarakat yang memiliki kebudayaan sama","Dapat menjadi dasar persatuan di tengah keberagaman","Mengutamakan kepentingan kelompok mayoritas","Membatasi perbedaan pandangan masyarakat","Menghilangkan seluruh kebudayaan daerah"],a:1,e:"Sifat universal dan inklusif memungkinkan Pancasila mempersatukan masyarakat yang beragam."},
+  {c:"Konsep dasar",q:"Nilai yang menjadi landasan fundamental Pancasila dan terdiri atas nilai ketuhanan, kemanusiaan, persatuan, kerakyatan, dan keadilan disebut ...",o:["Nilai instrumental","Nilai praksis","Nilai material","Nilai dasar","Nilai vital"],a:3,e:"Nilai dasar merupakan lima nilai fundamental yang terkandung dalam Pancasila."},
+  {c:"Konsep dasar",q:"Pemerintah membuat peraturan perundang-undangan yang mengacu pada nilai-nilai Pancasila. Dalam pengelompokan nilai Pancasila, tindakan tersebut merupakan penerapan ...",o:["Nilai dasar","Nilai instrumental","Nilai praksis","Nilai material","Nilai kerohanian"],a:1,e:"Nilai instrumental merupakan penjabaran nilai dasar ke dalam aturan atau pedoman pelaksanaan."},
+  {c:"Konsep dasar",q:"Seorang warga membantu tetangganya yang mengalami musibah tanpa mengharapkan imbalan. Perilaku tersebut merupakan contoh penerapan ...",o:["Nilai instrumental","Nilai praksis","Nilai material","Nilai formal","Nilai vital"],a:1,e:"Nilai praksis adalah pelaksanaan nyata nilai-nilai Pancasila dalam kehidupan sehari-hari."},
+  {c:"Konsep dasar",q:"Berikut ini yang termasuk nilai instrumental Pancasila adalah ...",o:["Nilai ketuhanan sebagai prinsip kehidupan","Nilai kemanusiaan yang terkandung dalam Pancasila","Peraturan yang menjadi pedoman pelaksanaan nilai dasar Pancasila","Perilaku gotong royong dalam masyarakat","Sikap saling menghormati antarwarga"],a:2,e:"Peraturan merupakan bentuk penjabaran dan pedoman pelaksanaan nilai dasar."},
+  {c:"Konsep dasar",q:"Menurut pengelompokan nilai Pancasila berdasarkan pendapat Prof. Dr. Notonegoro, segala sesuatu yang berguna bagi kebutuhan fisik manusia termasuk ...",o:["Nilai vital","Nilai material","Nilai kerohanian","Nilai instrumental","Nilai praksis"],a:1,e:"Nilai material berkaitan dengan hal-hal yang berguna bagi kebutuhan fisik manusia."},
+  {c:"Konsep dasar",q:"Teknologi, infrastruktur, dan sarana penunjang kehidupan termasuk kategori nilai ...",o:["Material","Kerohanian","Vital","Dasar","Praksis"],a:2,e:"Nilai vital mencakup sesuatu yang berguna untuk mengadakan kegiatan dan aktivitas."},
+  {c:"Konsep dasar",q:"Kebenaran, keindahan, kebaikan, dan nilai religius merupakan contoh dari ...",o:["Nilai material","Nilai vital","Nilai instrumental","Nilai kerohanian","Nilai praksis"],a:3,e:"Nilai kerohanian berkaitan dengan hal-hal yang berguna bagi rohani manusia."},
+  {c:"Asal-usul Pancasila",q:"Pancasila berasal dari adat kebiasaan, kebudayaan, dan agama-agama yang berkembang di Indonesia. Pernyataan tersebut menunjukkan causa ...",o:["Formalis","Efficiens","Finalis","Materialis","Praktis"],a:3,e:"Causa materialis menjelaskan asal mula bahan Pancasila yang bersumber dari kehidupan bangsa Indonesia."},
+  {c:"Asal-usul Pancasila",q:"Causa formalis dalam asal-usul Pancasila menjelaskan tentang ...",o:["Asal mula bahan pembentuk Pancasila","Asal mula bentuk atau bangun Pancasila","Tujuan akhir pembentukan Pancasila","Pelaksanaan Pancasila dalam masyarakat","Hasil pengamalan Pancasila"],a:1,e:"Causa formalis berarti asal mula bentuk atau bangun rumusan Pancasila."},
+  {c:"Asal-usul Pancasila",q:"BPUPKI memiliki peran penting dalam proses pembentukan rumusan Pancasila. Berdasarkan materi, peran tersebut berkaitan dengan causa ...",o:["Materialis","Formalis","Efficiens","Finalis","Vitalis"],a:1,e:"Dalam materi, proses perumusan bentuk Pancasila dikaitkan dengan causa formalis dan peran BPUPKI."},
+  {c:"Asal-usul Pancasila",q:"Proses awal yang meningkatkan status Pancasila dari calon dasar negara menjadi dasar negara yang sah dilakukan oleh PPKI. Hal tersebut termasuk causa ...",o:["Materialis","Formalis","Efficiens","Finalis","Instrumentalis"],a:2,e:"Causa efficiens adalah asal mula karya atau proses yang mewujudkan Pancasila sebagai dasar negara yang sah."},
+  {c:"Asal-usul Pancasila",q:"Tujuan dari perumusan dan pembahasan Pancasila adalah menjadikannya sebagai dasar negara Indonesia. Hal tersebut merupakan causa ...",o:["Materialis","Formalis","Efficiens","Finalis","Praksis"],a:3,e:"Causa finalis menjelaskan asal mula tujuan pembentukan Pancasila."},
+  {c:"Asal-usul Pancasila",q:"Perhatikan pasangan berikut: (1) Causa materialis – asal mula bahan. (2) Causa formalis – asal mula bentuk. (3) Causa efficiens – asal mula karya. (4) Causa finalis – asal mula tujuan. Pasangan yang tepat adalah ...",o:["1 dan 2 saja","1, 2, dan 3 saja","2 dan 4 saja","1, 2, 3, dan 4","1, 3, dan 4 saja"],a:3,e:"Keempat pasangan tersebut sesuai dengan pengertian causa dalam materi."},
+  {c:"Fungsi dan kedudukan",q:"Pancasila sebagai dasar negara sering disebut sebagai falsafah negara. Artinya, Pancasila menjadi ...",o:["Pedoman khusus bagi lembaga legislatif","Dasar dalam mengatur pemerintahan dan penyelenggaraan negara","Aturan yang hanya mengatur hubungan antaragama","Panduan untuk kepentingan ekonomi saja","Dasar untuk menghapus peraturan daerah"],a:1,e:"Sebagai dasar negara, Pancasila menjadi landasan penyelenggaraan pemerintahan dan negara."},
+  {c:"Fungsi dan kedudukan",q:"Secara resmi Pancasila diakui sebagai dasar negara pada tanggal ...",o:["1 Juni 1945","22 Juni 1945","17 Agustus 1945","18 Agustus 1945","20 Mei 1945"],a:3,e:"PPKI mengesahkan UUD 1945 yang memuat Pancasila pada 18 Agustus 1945."},
+  {c:"Fungsi dan kedudukan",q:"Pancasila sebagai pandangan hidup bangsa memiliki arti bahwa Pancasila ...",o:["Hanya digunakan dalam kegiatan pemerintahan","Menjadi pedoman masyarakat dalam menjalani kehidupan sehari-hari","Merupakan aturan yang hanya berlaku di lembaga negara","Tidak berkaitan dengan kehidupan sosial masyarakat","Hanya digunakan sebagai simbol persatuan"],a:1,e:"Pandangan hidup berarti pedoman atau arah dalam menjalani kehidupan sehari-hari."},
+  {c:"Fungsi dan kedudukan",q:"Seorang warga menyelesaikan perselisihan dengan tetangganya melalui musyawarah dan saling menghargai. Tindakan tersebut mencerminkan Pancasila sebagai ...",o:["Dasar hukum tertinggi","Pandangan hidup bangsa","Perjanjian internasional","Sumber kekuasaan negara","Sistem pemerintahan"],a:1,e:"Pancasila sebagai pandangan hidup menjadi pedoman perilaku dalam kehidupan masyarakat."},
+  {c:"Fungsi dan kedudukan",q:"Pancasila sebagai sumber dari segala sumber hukum berarti ...",o:["Semua hukum harus dibuat oleh presiden","Seluruh peraturan perundang-undangan harus berlandaskan nilai Pancasila","Pancasila dapat diubah melalui peraturan pemerintah","Hukum adat lebih tinggi daripada Pancasila","Setiap daerah bebas membuat hukum tanpa batas"],a:1,e:"Pancasila menjadi fondasi dan acuan bagi pembentukan seluruh hukum di Indonesia."},
+  {c:"Fungsi dan kedudukan",q:"Undang-Undang Nomor 39 Tahun 1999 tentang Hak Asasi Manusia merupakan contoh penerapan nilai Pancasila yang berkaitan dengan sila ...",o:["Pertama","Kedua","Ketiga","Keempat","Kelima"],a:1,e:"Perlindungan HAM berkaitan erat dengan sila kedua, Kemanusiaan yang Adil dan Beradab."},
+  {c:"Fungsi dan kedudukan",q:"Undang-Undang Nomor 23 Tahun 2014 tentang Pemerintahan Daerah berkaitan dengan penerapan prinsip ...",o:["Ketuhanan dan kemanusiaan","Persatuan dan musyawarah","Individualisme dan kebebasan mutlak","Persaingan dan kekuasaan","Ketuhanan dan keadilan pribadi"],a:1,e:"Materi mengaitkannya dengan sila ketiga dan keempat: persatuan serta kerakyatan/musyawarah."},
+  {c:"Fungsi dan kedudukan",q:"Pancasila sebagai kepribadian bangsa Indonesia berarti ...",o:["Pancasila menjadi alat untuk membedakan status sosial masyarakat","Nilai Pancasila mencerminkan sikap, mental, dan perilaku khas bangsa Indonesia","Pancasila hanya menggambarkan kebudayaan masa lalu","Kepribadian bangsa ditentukan oleh negara lain","Pancasila mengharuskan seluruh masyarakat memiliki pekerjaan yang sama"],a:1,e:"Pancasila mencerminkan karakter dan kepribadian khas bangsa Indonesia."},
+  {c:"Fungsi dan kedudukan",q:"Pancasila sebagai ideologi negara berfungsi untuk ...",o:["Memberikan arah dan tujuan dalam kehidupan nasional","Mengatur seluruh kehidupan pribadi masyarakat secara mutlak","Menghilangkan kebebasan berpendapat","Membatasi pembangunan hanya pada sektor ekonomi","Menggantikan seluruh kebudayaan Indonesia"],a:0,e:"Sebagai ideologi, Pancasila memberi arah dan tujuan kehidupan nasional."},
+  {c:"Fungsi dan kedudukan",q:"Pancasila sebagai paradigma pembangunan berarti ...",o:["Pembangunan hanya bertujuan meningkatkan pendapatan negara","Pembangunan harus mengikuti kepentingan kelompok tertentu","Pembangunan diarahkan untuk mewujudkan masyarakat adil, makmur, dan sejahtera","Pembangunan hanya berfokus pada infrastruktur","Pembangunan tidak perlu memperhatikan persatuan bangsa"],a:2,e:"Pembangunan harus diarahkan pada tujuan nasional dan nilai keadilan, kemakmuran, serta kesejahteraan."},
+  {c:"Fungsi dan kedudukan",q:"Berikut ini yang merupakan tujuan bangsa Indonesia sebagaimana tercantum dalam Pembukaan UUD 1945 adalah ...",o:["Menguasai seluruh perdagangan dunia","Melindungi segenap bangsa Indonesia dan seluruh tumpah darah Indonesia","Menjadikan Indonesia sebagai negara dengan kekuatan militer terbesar","Menghapus seluruh perbedaan budaya","Membatasi hubungan dengan negara lain"],a:1,e:"Melindungi segenap bangsa Indonesia dan seluruh tumpah darah Indonesia merupakan salah satu tujuan nasional."},
+  {c:"Fungsi dan kedudukan",q:"Pancasila disebut sebagai perjanjian luhur bangsa Indonesia karena ...",o:["Dibentuk berdasarkan keputusan satu kelompok masyarakat","Merupakan kesepakatan dan konsensus bangsa Indonesia sebagai dasar negara","Dibuat berdasarkan perintah negara asing","Hanya berlaku bagi generasi yang merumuskan kemerdekaan","Merupakan perjanjian perdagangan antarnegara"],a:1,e:"Pancasila merupakan kesepakatan luhur bangsa yang ditetapkan sebagai dasar negara."},
+  {c:"Fungsi dan kedudukan",q:"Pancasila sebagai jiwa bangsa Indonesia mengandung arti bahwa Pancasila ...",o:["Hanya digunakan dalam kegiatan kenegaraan","Menjadi inti atau esensi yang hidup dalam diri bangsa Indonesia","Merupakan aturan yang mengatur kegiatan ekonomi","Hanya menjadi simbol dalam upacara kenegaraan","Dapat digantikan oleh kebudayaan asing"],a:1,e:"Pancasila sebagai jiwa bangsa merupakan inti yang menghidupkan identitas dan karakter bangsa."},
+  {c:"Penerapan sila",q:"Di sebuah lingkungan masyarakat terdapat warga yang berbeda agama. Ketua RT mengajak seluruh warga untuk saling menghormati dan tidak mengganggu kegiatan ibadah masing-masing. Sikap tersebut mencerminkan sila ...",o:["Kemanusiaan yang Adil dan Beradab","Persatuan Indonesia","Ketuhanan Yang Maha Esa","Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan","Keadilan Sosial bagi Seluruh Rakyat Indonesia"],a:2,e:"Menghormati kebebasan beribadah merupakan pengamalan sila pertama."},
+  {c:"Penerapan sila",q:"Seorang pegawai memberikan pelayanan kepada masyarakat tanpa membedakan suku, agama, ras, maupun status sosial. Perilaku tersebut paling tepat mencerminkan sila ...",o:["Pertama","Kedua","Ketiga","Keempat","Kelima"],a:1,e:"Memperlakukan manusia secara adil tanpa diskriminasi mencerminkan sila kedua."},
+  {c:"Penerapan sila",q:"Dalam sebuah organisasi, terdapat anggota yang memiliki pendapat berbeda mengenai suatu kebijakan. Ketua organisasi memberikan kesempatan kepada seluruh anggota untuk menyampaikan pendapat sebelum mengambil keputusan. Hal tersebut merupakan penerapan sila ...",o:["Pertama","Kedua","Ketiga","Keempat","Kelima"],a:3,e:"Kesempatan menyampaikan pendapat dan mengambil keputusan melalui musyawarah merupakan sila keempat."},
+  {c:"Penerapan sila",q:"Masyarakat di suatu desa bekerja sama membangun jembatan tanpa mengharapkan imbalan. Tindakan tersebut menunjukkan nilai ...",o:["Individualisme","Gotong royong dan persatuan","Persaingan sosial","Kepentingan pribadi","Kebebasan tanpa batas"],a:1,e:"Kerja sama untuk kepentingan bersama mencerminkan gotong royong dan persatuan."},
+  {c:"Penerapan sila",q:"Seorang pejabat menggunakan jabatannya untuk memberikan bantuan hanya kepada keluarga dan kelompoknya sendiri, padahal masih banyak masyarakat yang membutuhkan. Tindakan tersebut bertentangan dengan sila ...",o:["Pertama","Kedua","Ketiga","Keempat","Kelima"],a:4,e:"Mengutamakan kelompok sendiri dan mengabaikan keadilan bertentangan dengan sila kelima."},
+  {c:"Penerapan sila",q:"Ketika terjadi perbedaan pendapat dalam rapat desa, seluruh peserta sepakat mengutamakan musyawarah untuk mencapai mufakat. Sikap tersebut mencerminkan ...",o:["Kebebasan individu","Demokrasi berdasarkan kekuasaan mayoritas semata","Kerakyatan yang dipimpin oleh hikmat kebijaksanaan","Persaingan dalam kehidupan sosial","Kepentingan golongan"],a:2,e:"Musyawarah untuk mufakat merupakan inti pengamalan sila keempat."},
+  {c:"Penerapan sila",q:"Seorang siswa menemukan dompet di lingkungan sekolah. Ia kemudian menyerahkannya kepada guru agar dapat dikembalikan kepada pemiliknya. Perilaku tersebut mencerminkan ...",o:["Menghargai hak orang lain dan menjunjung nilai kemanusiaan","Mengutamakan kepentingan pribadi","Menggunakan hak milik untuk kepentingan sendiri","Menghindari tanggung jawab sosial","Mengutamakan kepentingan kelompok"],a:0,e:"Mengembalikan barang milik orang lain menunjukkan penghormatan terhadap hak dan martabat sesama."},
+  {c:"Penerapan sila",q:"Masyarakat Indonesia terdiri atas berbagai suku, budaya, dan bahasa. Sikap yang paling tepat untuk menjaga persatuan adalah ...",o:["Menganggap kebudayaan sendiri paling unggul","Menghindari interaksi dengan kelompok berbeda","Mengembangkan persatuan berdasarkan Bhinneka Tunggal Ika","Mengutamakan kepentingan suku sendiri","Membatasi kegiatan kebudayaan daerah"],a:2,e:"Bhinneka Tunggal Ika mengajarkan persatuan dalam keberagaman."},
+  {c:"Penerapan sila",q:"Dalam suatu pemilihan ketua organisasi, salah satu calon memaksa anggota lain untuk memilih dirinya. Perbuatan tersebut bertentangan dengan butir pengamalan sila keempat, yaitu ...",o:["Mengembangkan sikap saling mencintai sesama manusia","Tidak boleh memaksakan kehendak kepada orang lain","Mengembangkan rasa cinta kepada tanah air","Menjaga keseimbangan hak dan kewajiban","Membina kerukunan hidup antarumat beragama"],a:1,e:"Sila keempat menegaskan bahwa seseorang tidak boleh memaksakan kehendak kepada orang lain."},
+  {c:"Penerapan sila",q:"Pemerintah memberikan bantuan sosial secara adil kepada masyarakat yang benar-benar membutuhkan. Kebijakan tersebut merupakan bentuk penerapan ...",o:["Sila pertama","Sila kedua","Sila ketiga","Sila keempat","Sila kelima"],a:4,e:"Pemerataan dan keadilan dalam bantuan sosial mencerminkan sila kelima."},
+  {c:"Penerapan sila",q:"Seorang warga menggunakan hak milik pribadinya untuk melakukan usaha yang mengeksploitasi dan memeras pekerjanya. Perilaku tersebut bertentangan dengan butir Pancasila yang menyatakan ...",o:["Mengembangkan sikap hormat terhadap kebebasan beribadah","Tidak menggunakan hak milik untuk usaha yang bersifat pemerasan terhadap orang lain","Mengembangkan rasa cinta kepada tanah air","Mengutamakan musyawarah dalam mengambil keputusan","Mengakui persamaan derajat manusia"],a:1,e:"Butir sila kelima melarang penggunaan hak milik untuk usaha yang bersifat pemerasan."},
+  {c:"Butir Pancasila",q:"Seorang warga tetap menghormati tetangganya yang sedang menjalankan ibadah meskipun memiliki keyakinan berbeda. Perilaku tersebut termasuk butir sila pertama, yaitu ...",o:["Tidak memaksakan suatu agama dan kepercayaan kepada orang lain","Mengutamakan kepentingan pribadi","Mengembangkan sikap individualisme","Memaksakan keyakinan kepada orang lain","Menghindari kehidupan bermasyarakat"],a:0,e:"Sila pertama mengajarkan penghormatan terhadap agama dan kepercayaan orang lain serta tidak memaksakannya."},
+  {c:"Butir Pancasila",q:"Dalam kehidupan bermasyarakat, setiap individu harus diperlakukan sesuai harkat dan martabatnya sebagai manusia. Hal tersebut merupakan pengamalan sila ...",o:["Ketuhanan Yang Maha Esa","Kemanusiaan yang Adil dan Beradab","Persatuan Indonesia","Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan","Keadilan Sosial bagi Seluruh Rakyat Indonesia"],a:1,e:"Mengakui dan memperlakukan manusia sesuai harkat dan martabatnya adalah sila kedua."},
+  {c:"Butir Pancasila",q:"Seorang warga rela membantu korban bencana alam di daerah lain meskipun berbeda suku dan agama. Sikap tersebut menunjukkan ...",o:["Mengutamakan kepentingan golongan","Mengembangkan sikap kemanusiaan dan persaudaraan","Membatasi hubungan sosial","Mengutamakan kepentingan pribadi","Menghindari tanggung jawab sosial"],a:1,e:"Bantuan tanpa membedakan latar belakang mencerminkan nilai kemanusiaan dan persaudaraan."},
+  {c:"Butir Pancasila",q:"Ketika terjadi konflik antarkelompok masyarakat, seorang ASN berusaha menjadi penengah dan mengajak kedua pihak menyelesaikan masalah secara damai. Tindakan tersebut paling tepat mencerminkan ...",o:["Persatuan Indonesia","Persaingan sosial","Kepentingan kelompok","Kekuasaan individu","Kebebasan tanpa batas"],a:0,e:"Mendamaikan kelompok yang berselisih membantu menjaga persatuan dan kesatuan."},
+  {c:"Butir Pancasila",q:"Dalam rapat pengambilan keputusan, hasil musyawarah telah disepakati bersama. Meskipun usulannya tidak diterima, seorang anggota tetap melaksanakan keputusan tersebut dengan penuh tanggung jawab. Perilaku ini sesuai dengan butir sila keempat, yaitu ...",o:["Tidak boleh memaksakan kehendak","Menghormati dan menjunjung tinggi setiap keputusan yang dicapai sebagai hasil musyawarah","Mengutamakan kepentingan pribadi","Mengembangkan sikap individualisme","Menghindari tanggung jawab"],a:1,e:"Hasil musyawarah harus dihormati dan dilaksanakan dengan itikad baik."},
+  {c:"Butir Pancasila",q:"Seorang ASN memberikan pelayanan administrasi kepada masyarakat sesuai antrean tanpa mendahulukan orang yang dikenalnya. Perilaku tersebut paling sesuai dengan nilai ...",o:["Keadilan sosial","Kekuasaan","Kepentingan pribadi","Individualisme","Diskriminasi sosial"],a:0,e:"Melayani sesuai antrean tanpa pilih kasih mencerminkan keadilan bagi masyarakat."},
+  {c:"Butir Pancasila",q:"Pemerintah membangun fasilitas umum di daerah terpencil agar masyarakat memperoleh kesempatan yang sama dalam menikmati pembangunan. Kebijakan tersebut mencerminkan sila ...",o:["Pertama","Kedua","Ketiga","Keempat","Kelima"],a:4,e:"Pemerataan pembangunan dan kesempatan merupakan wujud keadilan sosial."},
+  {c:"Butir Pancasila",q:"Dalam kehidupan bermasyarakat, seseorang memiliki hak sekaligus kewajiban. Sikap yang sesuai dengan sila kelima adalah ...",o:["Menuntut hak tanpa melaksanakan kewajiban","Menjaga keseimbangan antara hak dan kewajiban","Mengutamakan hak kelompok sendiri","Mengabaikan kepentingan umum","Menggunakan hak untuk merugikan orang lain"],a:1,e:"Sila kelima mengajarkan keseimbangan antara hak dan kewajiban."},
+  {c:"Butir Pancasila",q:"Seorang ASN mengetahui adanya tindakan diskriminasi terhadap masyarakat berdasarkan suku dan agama. Sikap yang paling tepat sesuai nilai Pancasila adalah ...",o:["Membiarkan karena bukan urusannya","Mendukung kelompok yang lebih kuat","Menjunjung persamaan derajat dan memperjuangkan perlakuan yang adil","Menghindari seluruh kegiatan masyarakat","Mengutamakan kepentingan pribadi"],a:2,e:"Persamaan derajat dan perlakuan adil tanpa diskriminasi mencerminkan nilai kemanusiaan."},
+  {c:"Butir Pancasila",q:"Dalam menjalankan tugas sebagai ASN, seorang pegawai harus mengutamakan kepentingan bangsa dan negara di atas kepentingan pribadi maupun golongan. Prinsip tersebut paling erat kaitannya dengan ...",o:["Sila pertama","Sila kedua","Sila ketiga","Sila keempat","Sila kelima"],a:2,e:"Mendahulukan kepentingan bangsa dan negara di atas kepentingan pribadi atau golongan merupakan pengamalan sila ketiga."}
+];
+
+const $ = id => document.getElementById(id);
+const letters = ["A","B","C","D","E"];
+let current = 0, timeLeft = 60, timerId = null, startedAt = 0, totalUsed = 0;
+let responses = [], skipped = [], finished = false;
+
+function startQuiz() {
+  current = 0; timeLeft = 60; totalUsed = 0; finished = false;
+  responses = Array(questions.length).fill(null);
+  skipped = Array(questions.length).fill(false);
+  $("introScreen").classList.add("hidden");
+  $("resultScreen").classList.add("hidden");
+  $("quizScreen").classList.remove("hidden");
+  startedAt = Date.now();
+  renderQuestion();
+  startTimer();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function startTimer() {
+  clearInterval(timerId);
+  updateTimer();
+  timerId = setInterval(() => {
+    timeLeft--;
+    updateTimer();
+    if (timeLeft <= 0) {
+      clearInterval(timerId);
+      if (responses[current] === null) skipped[current] = true;
+      moveNext(true);
+    }
+  }, 1000);
+}
+function updateTimer() {
+  const mm = String(Math.floor(timeLeft/60)).padStart(2,"0");
+  const ss = String(timeLeft%60).padStart(2,"0");
+  $("timerValue").textContent = `${mm}:${ss}`;
+  $("timerCard").classList.toggle("urgent", timeLeft <= 15);
+}
+function renderQuestion() {
+  const q = questions[current];
+  $("currentNumber").textContent = String(current+1).padStart(2,"0");
+  $("progressText").textContent = `${current+1} dari ${questions.length}`;
+  $("progressBar").style.width = `${((current+1)/questions.length)*100}%`;
+  $("questionCategory").textContent = q.c.toUpperCase();
+  $("questionText").textContent = q.q;
+  $("optionsList").innerHTML = "";
+  q.o.forEach((option,i) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    const hasAnswered = responses[current] !== null;
+    let stateClass = "";
+    if (hasAnswered && i === q.a) stateClass = " correct-answer";
+    else if (hasAnswered && i === responses[current] && responses[current] !== q.a) stateClass = " wrong-answer";
+    else if (!hasAnswered && responses[current] === i) stateClass = " selected";
+    btn.className = "option" + stateClass;
+    btn.innerHTML = `<span class="option-key">${letters[i]}</span><span></span>`;
+    btn.querySelector("span:last-child").textContent = option;
+    btn.disabled = hasAnswered;
+    btn.addEventListener("click", () => selectAnswer(i));
+    $("optionsList").appendChild(btn);
+  });
+  if (responses[current] === null) {
+    $("answeredHint").textContent = "Pilih satu jawaban untuk melanjutkan.";
+  } else if (responses[current] === q.a) {
+    $("answeredHint").textContent = "Benar! Jawaban yang tepat ditandai hijau.";
+  } else {
+    $("answeredHint").textContent = `Kurang tepat. Jawaban benar: ${letters[q.a]} — ditandai hijau.`;
+  }
+  $("nextBtn").disabled = responses[current] === null;
+  $("nextBtn").innerHTML = current === questions.length-1 ? 'Lihat hasil <span>✓</span>' : 'Soal berikutnya <span>→</span>';
+  updateNav();
+}
+function selectAnswer(index) {
+  if (finished || skipped[current] || responses[current] !== null) return;
+  responses[current] = index;
+  renderQuestion();
+}
+function updateNav() {
+  $("questionNav").innerHTML = "";
+  questions.forEach((_,i) => {
+    const b = document.createElement("div");
+    b.className = "nav-number" + (i===current ? " current" : "") + (responses[i]!==null ? " done" : "") + (skipped[i] ? " skipped" : "");
+    b.textContent = i+1;
+    b.title = `Soal ${i+1}`;
+    b.setAttribute("aria-label", `Status soal ${i+1}`);
+    $("questionNav").appendChild(b);
+  });
+  const count = responses.filter(v=>v!==null).length;
+  $("answeredCount").textContent = `${count}/${questions.length} terjawab`;
+}
+function moveNext(fromTimeout=false) {
+  if (finished) return;
+  if (current === questions.length-1) { finishQuiz(); return; }
+  current++;
+  timeLeft = 60;
+  renderQuestion();
+  startTimer();
+}
+function askFinish() {
+  const unanswered = responses.filter(v=>v===null).length;
+  $("confirmText").textContent = unanswered
+    ? `${unanswered} soal belum dijawab dan akan dihitung salah. Yakin ingin menyelesaikan simulasi?`
+    : "Semua soal sudah dijawab. Yakin ingin melihat hasil?";
+  $("confirmDialog").showModal();
+}
+function finishQuiz() {
+  if (finished) return;
+  finished = true;
+  clearInterval(timerId);
+  totalUsed = Math.min(questions.length*60, Math.round((Date.now()-startedAt)/1000));
+  const correct = responses.reduce((sum,v,i)=>sum+(v===questions[i].a?1:0),0);
+  const wrong = questions.length - correct;
+  const skippedCount = skipped.filter(Boolean).length;
+  const score = correct * 2;
+  $("quizScreen").classList.add("hidden");
+  $("resultScreen").classList.remove("hidden");
+  $("scoreValue").textContent = score;
+  $("scoreRing").style.setProperty("--score-angle", `${score*3.6}deg`);
+  $("correctCount").textContent = correct;
+  $("wrongCount").textContent = wrong;
+  $("skippedCount").textContent = skippedCount;
+  $("timeUsed").textContent = `${String(Math.floor(totalUsed/60)).padStart(2,"0")}:${String(totalUsed%60).padStart(2,"0")}`;
+  $("resultBadge").textContent = score >= 90 ? "SANGAT BAIK" : score >= 80 ? "BAIK" : score >= 70 ? "CUKUP" : "PERLU LATIHAN";
+  $("resultTitle").textContent = score >= 90 ? "Luar biasa! Pemahamanmu kuat." : score >= 80 ? "Bagus! Terus pertahankan." : score >= 70 ? "Awal yang baik. Tingkatkan lagi." : "Jangan menyerah, terus berlatih.";
+  $("resultDescription").textContent = `Kamu menjawab benar ${correct} dari ${questions.length} soal. Setiap jawaban benar bernilai 2 poin. Jawaban kosong dan soal yang terlewat dihitung salah.`;
+  $("reviewSummary").textContent = `${questions.length} soal · ${correct} benar`;
+  renderReview();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function renderReview() {
+  $("reviewList").innerHTML = "";
+  questions.forEach((q,i) => {
+    const isCorrect = responses[i] === q.a;
+    const details = document.createElement("details");
+    details.className = "review-item";
+    const summary = document.createElement("summary");
+    summary.innerHTML = `<span class="review-status ${isCorrect?"correct":"wrong"}">${isCorrect?"✓":"×"}</span><span class="review-question"></span><span class="review-chevron">＋</span>`;
+    summary.querySelector(".review-question").textContent = `${i+1}. ${q.q}`;
+    const detail = document.createElement("div");
+    detail.className = "review-detail";
+    const userAnswer = responses[i] === null ? (skipped[i] ? "Terlewat (waktu habis)" : "Tidak dijawab") : `${letters[responses[i]]}. ${q.o[responses[i]]}`;
+    detail.innerHTML = `<div><strong>Jawabanmu:</strong> <span class="user-answer"></span></div><div><strong>Kunci:</strong> <span class="correct-answer"></span></div><div><strong>Pembahasan:</strong> <span class="explanation"></span></div>`;
+    detail.querySelector(".user-answer").textContent = userAnswer;
+    detail.querySelector(".correct-answer").textContent = `${letters[q.a]}. ${q.o[q.a]}`;
+    detail.querySelector(".explanation").textContent = q.e;
+    details.append(summary,detail);
+    $("reviewList").appendChild(details);
+  });
+}
+$("startBtn").addEventListener("click", startQuiz);
+$("nextBtn").addEventListener("click", () => { if (responses[current] !== null) moveNext(); });
+$("finishBtn").addEventListener("click", askFinish);
+$("cancelFinish").addEventListener("click", () => $("confirmDialog").close());
+$("confirmFinish").addEventListener("click", () => { $("confirmDialog").close(); finishQuiz(); });
+$("restartBtn").addEventListener("click", startQuiz);
+$("printBtn").addEventListener("click", () => window.print());
+
+  </script>
+</body>
+</html>
